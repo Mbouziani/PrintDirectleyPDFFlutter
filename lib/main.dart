@@ -26,11 +26,22 @@ class MyWidget extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(),
       body: Center(
-        child: ElevatedButton(
-          child: const Text('Print PDF'),
-          onPressed: () {
-            MyPDFClass.printPdf();
-          },
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            // ElevatedButton(
+            //   child: const Text('Print PDF'),
+            //   onPressed: () {
+            //     MyPDFClass.printPdf();
+            //   },
+            // ),
+            ElevatedButton(
+              child: const Text('Print 2 PDF'),
+              onPressed: () {
+                MyPDFClass.printPdf();
+              },
+            ),
+          ],
         ),
       ),
     );

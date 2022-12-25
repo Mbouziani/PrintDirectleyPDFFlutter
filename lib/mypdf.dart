@@ -22,4 +22,52 @@ class MyPDFClass {
       },
     );
   }
+
+  static Future<void> print2Pdf() async {
+    final printerList = await Printing.listPrinters();
+
+    if (printerList.isNotEmpty) {
+      final printer = printerList.first;
+
+      await Printing.directPrintPdf(
+        onLayout: (PdfPageFormat format) async {
+          final doc = pw.Document();
+
+          doc.addPage(
+            pw.Page(
+              build: (context) {
+                return pw.Center(
+                  child: pw.Text('Print directly on exsisting Printer',
+                      style: const pw.TextStyle(fontSize: 50)),
+                );
+              },
+            ),
+          );
+          return doc.save();
+        },
+        printer: printer,
+        name: 'my_pdf.pdf',
+      );
+    } else {
+      await Printing.layoutPdf(
+        onLayout: (PdfPageFormat format) async {
+          final doc = pw.Document();
+
+          doc.addPage(
+            pw.Page(
+              build: (context) {
+                return pw.Center(
+                  child: pw.Text(
+                    'print afet chosing the printer',
+                    style: const pw.TextStyle(fontSize: 50),
+                  ),
+                );
+              },
+            ),
+          );
+          return doc.save();
+        },
+      );
+    }
+  }
 }
